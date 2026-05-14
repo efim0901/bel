@@ -146,6 +146,24 @@ iframe {
     border-bottom: 1px solid rgba(255, 255, 255, 0.10);
 }
 
+.top-line,
+.top-line span,
+.top-line a,
+.top-line .text-white\/86,
+.top-line .text-white {
+    color: rgba(255, 255, 255, 0.94) !important;
+}
+
+.top-line i,
+.top-line .text-brand-300 {
+    color: #bff1d4 !important;
+}
+
+.top-line .text-slate-400,
+.top-line .text-graphite-500 {
+    color: rgba(255, 255, 255, 0.72) !important;
+}
+
 .top-link {
     display: inline-flex;
     align-items: center;
@@ -2187,4 +2205,190 @@ body.mode-colorblind .faq-item {
     .scenario-row span {
         width: fit-content;
     }
+}
+
+/* Dark-mode contrast audit overrides */
+body.theme-dark .split-feature {
+    color: #eff8f2;
+    background:
+        radial-gradient(circle at 88% 12%, rgba(126, 201, 158, 0.12), transparent 34%),
+        linear-gradient(135deg, rgba(18, 32, 28, 0.96), rgba(9, 22, 18, 0.98));
+    border-color: rgba(255, 255, 255, 0.13);
+}
+
+body.theme-dark .business-shell {
+    background: rgba(18, 32, 28, 0.88) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.22);
+}
+
+body.theme-dark .split-feature .section-kicker,
+body.theme-dark .contact-preview .section-kicker,
+body.theme-dark .rules-panel .section-kicker,
+body.theme-dark .price-panel .section-kicker,
+body.theme-dark .trust-panel .section-kicker,
+body.theme-dark .docs-panel .section-kicker,
+body.theme-dark .schedule-panel .section-kicker,
+body.theme-dark .request-card .section-kicker {
+    color: #7ee0a8;
+}
+
+body.theme-dark .split-feature h2,
+body.theme-dark .split-feature .text-graphite-900,
+body.theme-dark .direction-tile span,
+body.theme-dark .rule-row strong,
+body.theme-dark .doc-row strong,
+body.theme-dark .format-row strong,
+body.theme-dark .schedule-row strong,
+body.theme-dark .price-step strong,
+body.theme-dark .service-note strong,
+body.theme-dark .contact-preview a,
+body.theme-dark .stat-line span {
+    color: #f4fff8 !important;
+}
+
+body.theme-dark .split-feature p,
+body.theme-dark .direction-tile small,
+body.theme-dark .price-step p,
+body.theme-dark .service-note span,
+body.theme-dark .schedule-row span,
+body.theme-dark .stat-line p {
+    color: #c8d8d0 !important;
+}
+
+body.theme-dark .direction-tile,
+body.theme-dark .rule-row,
+body.theme-dark .doc-row,
+body.theme-dark .format-row,
+body.theme-dark .schedule-row,
+body.theme-dark .price-step,
+body.theme-dark .service-note,
+body.theme-dark .contact-preview a {
+    background: rgba(255, 255, 255, 0.085);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.theme-dark .direction-tile:hover,
+body.theme-dark .contact-preview a:hover {
+    background: rgba(126, 201, 158, 0.13);
+    border-color: rgba(126, 201, 158, 0.28);
+}
+
+body.theme-dark .process-index,
+body.theme-dark .price-step span {
+    color: rgba(126, 201, 158, 0.42);
+}
+
+body.theme-dark .process-icon,
+body.theme-dark .rule-row i,
+body.theme-dark .doc-row i,
+body.theme-dark .format-row i,
+body.theme-dark .contact-row > i,
+body.theme-dark .category-card > i,
+body.theme-dark .signal-card i,
+body.theme-dark .condition-card i,
+body.theme-dark .business-feature i {
+    color: #07130f;
+    background: #bff1d4;
+    border-color: rgba(191, 241, 212, 0.42);
+}
+
+body.theme-dark .service-icon,
+body.theme-dark .equipment-icon {
+    background: rgba(191, 241, 212, 0.95);
+    border-color: rgba(191, 241, 212, 0.42);
+}
+
+body.theme-dark .tone-green,
+body.theme-dark .equipment-icon {
+    color: #063b27;
+}
+
+body.theme-dark .tone-blue {
+    color: #064b76;
+    background: #d9efff;
+    border-color: rgba(125, 203, 242, 0.42);
+}
+
+body.theme-dark .tone-amber {
+    color: #6d4100;
+    background: #fff2cf;
+    border-color: rgba(255, 215, 140, 0.48);
+}
+
+body.theme-dark .tone-metal {
+    color: #17211e;
+    background: #d9e2de;
+    border-color: rgba(217, 226, 222, 0.48);
+}
+
+body.theme-dark .service-price,
+body.theme-dark .equipment-card span,
+body.theme-dark .scenario-row span {
+    color: #07130f;
+    background: #d7efe0;
+    border-color: rgba(215, 239, 224, 0.50);
+}
+
+body.theme-dark .contact-preview a i,
+body.theme-dark .service-card li i,
+body.theme-dark .document-panel ul i,
+body.theme-dark .direction-tile i {
+    color: #7ee0a8;
+}
+
+body.theme-dark .service-card li,
+body.theme-dark .document-panel ul li {
+    color: #d8e7df;
+}
+
+body.theme-dark .faq-bottom .section-kicker {
+    color: #9be7bd;
+}
+
+body.theme-dark .map-badge {
+    background: rgba(9, 22, 18, 0.92);
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+body.theme-dark .map-badge span {
+    color: #7ee0a8;
+}
+
+body.theme-dark .map-badge strong {
+    color: #f4fff8;
+}
+
+body.theme-dark .footer .text-brand-300,
+body.theme-dark .top-line .text-brand-300 {
+    color: #9be7bd !important;
+}
+
+body.theme-dark.mode-colorblind .split-feature .section-kicker,
+body.theme-dark.mode-colorblind .contact-preview .section-kicker,
+body.theme-dark.mode-colorblind .rules-panel .section-kicker,
+body.theme-dark.mode-colorblind .price-panel .section-kicker,
+body.theme-dark.mode-colorblind .trust-panel .section-kicker,
+body.theme-dark.mode-colorblind .docs-panel .section-kicker,
+body.theme-dark.mode-colorblind .schedule-panel .section-kicker,
+body.theme-dark.mode-colorblind .request-card .section-kicker,
+body.theme-dark.mode-colorblind .contact-preview a i,
+body.theme-dark.mode-colorblind .service-card li i,
+body.theme-dark.mode-colorblind .document-panel ul i,
+body.theme-dark.mode-colorblind .direction-tile i {
+    color: #8fd7ff;
+}
+
+body.theme-dark.mode-colorblind .process-icon,
+body.theme-dark.mode-colorblind .rule-row i,
+body.theme-dark.mode-colorblind .doc-row i,
+body.theme-dark.mode-colorblind .format-row i,
+body.theme-dark.mode-colorblind .contact-row > i,
+body.theme-dark.mode-colorblind .category-card > i,
+body.theme-dark.mode-colorblind .signal-card i,
+body.theme-dark.mode-colorblind .condition-card i,
+body.theme-dark.mode-colorblind .business-feature i {
+    color: #042a42;
+    background: #b9e2ff;
+    border-color: rgba(185, 226, 255, 0.45);
 }
