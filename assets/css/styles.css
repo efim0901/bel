@@ -103,15 +103,12 @@ iframe {
     z-index: -2;
     pointer-events: none;
     overflow: hidden;
+    /* ДОБАВИТЬ: */
+    contain: strict;
 }
 
 .ambient {
-    position: absolute;
-    width: 420px;
-    height: 420px;
-    border-radius: 50%;
-    filter: blur(72px);
-    opacity: 0.34;
+    display: none;
 }
 
 .ambient-one {
@@ -624,9 +621,9 @@ body.theme-dark .settings-trigger-sm:hover {
 .settings-overlay {
     position: fixed;
     inset: 0;
-    z-index: 55;
+    z-index: 65; /* было не указано/55, стало 65 — между header и panel */
     background: rgba(8, 25, 20, 0.45);
-    backdrop-filter: blur(4px);
+    /* УБРАТЬ backdrop-filter: blur(4px); — убивает 60fps */
 }
 
 .settings-panel {
@@ -634,7 +631,7 @@ body.theme-dark .settings-trigger-sm:hover {
     top: 0;
     right: 0;
     bottom: 0;
-    z-index: 56;
+    z-index: 70; /* было 56, стало 70 — выше top-line (60) и header (50) */
     width: 100%;
     max-width: 380px;
     background: #ffffff;
@@ -642,6 +639,7 @@ body.theme-dark .settings-trigger-sm:hover {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    /* УБРАТЬ backdrop-filter — он здесь не нужен и лагает */
 }
 
 body.theme-dark .settings-panel {
@@ -981,7 +979,6 @@ body.theme-dark .sp-note {
 .mobile-menu {
     position: relative;
     background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(16px);
     box-shadow: 0 24px 60px rgba(23, 33, 30, 0.12);
     border-top: 1px solid rgba(23, 33, 30, 0.08);
     padding: 8px 0 16px;
@@ -1038,7 +1035,8 @@ body.theme-dark .mobile-menu {
     border-radius: var(--radius);
     background: var(--graphite-900);
     box-shadow: var(--shadow-lift);
-    isolation: isolate;
+    /* УБРАТЬ: isolation: isolate; */
+    contain: layout paint; /* новое — ограничивает перерисовку */
 }
 
 .hero-media {
@@ -1048,7 +1046,8 @@ body.theme-dark .mobile-menu {
     background-image: url("https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=2200&auto=format&fit=crop");
     background-position: center;
     background-size: cover;
-    transform: scale(1.02);
+    /* УБРАТЬ: transform: scale(1.02); */
+    will-change: transform; /* только если нужна анимация, иначе убрать */
 }
 
 .hero-shade {
@@ -1056,18 +1055,8 @@ body.theme-dark .mobile-menu {
     inset: 0;
     z-index: -2;
     background:
-        linear-gradient(90deg, rgba(8, 25, 20, 0.96), rgba(8, 62, 42, 0.82) 48%, rgba(8, 62, 42, 0.30)),
-        radial-gradient(circle at 82% 24%, rgba(126, 201, 158, 0.22), transparent 34%);
-}
-
-.hero-panel::after {
-    content: "";
-    position: absolute;
-    inset: 20px;
-    z-index: -1;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius);
-    pointer-events: none;
+        linear-gradient(90deg, rgba(8, 25, 20, 0.96), rgba(8, 62, 42, 0.82) 48%, rgba(8, 62, 42, 0.30));
+    /* УБРАТЬ radial-gradient с blur */
 }
 
 .hero-content {
@@ -2496,28 +2485,31 @@ body.theme-dark .mobile-menu {
     background: var(--brand-900);
 }
 
-.hero-content > * {
+.hero-content {
     position: relative;
-    z-index: 1;
-}
-
-.hero-content::before {
-    content: "";
-    position: absolute;
-    top: 46px;
-    bottom: 160px;
-    left: 28px;
-    width: min(880px, calc(100% - 56px));
+    z-index: 2;
+    padding: 74px 36px 220px;
+    background: rgba(5, 18, 15, 0.55); /* вместо ::before */
     border-radius: var(--radius);
-    background:
-        linear-gradient(90deg, rgba(5, 18, 15, 0.74), rgba(5, 18, 15, 0.42)),
-        rgba(8, 25, 20, 0.48);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(6px);
+    margin: 20px;
+    /* УБРАТЬ text-shadow с h1 и p — или ослабить */
 }
 
 .hero-content h1 {
     text-shadow: 0 18px 42px rgba(0, 0, 0, 0.36);
+}
+
+.mobile-menu {
+    position: relative;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 24px 60px rgba(23, 33, 30, 0.12);
+    border-top: 1px solid rgba(23, 33, 30, 0.08);
+    padding: 8px 0 16px;
+    max-height: calc(100vh - 78px);
+    overflow-y: auto;
+    z-index: 45;
+    transform-origin: top center; /* добавить — анимация сверху вниз */
 }
 
 .hero-content p {
