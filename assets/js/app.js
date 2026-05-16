@@ -12,6 +12,10 @@ function siteApp() {
         activeFaq:        0,
         themeMode:        'light',
         accessibilityMode:'normal',
+        toastMessage:      '',
+        toastVisible:      false,
+        toastTimeout:      null,
+        faqSearch:         '',
 
         /* ── Navigation ───────────────────────────────────────── */
         navItems: [
@@ -61,7 +65,7 @@ function siteApp() {
         ],
 
         /* ── Services ─────────────────────────────────────────── */
-        services: [
+                services: [
             {
                 title:       'Макулатура',
                 description: 'Приём картонной упаковки, офисной бумаги, архивов, газет, журналов и книжной продукции.',
@@ -74,8 +78,11 @@ function siteApp() {
                     'газеты, журналы, книги',
                     'производственная бумажная упаковка'
                 ],
-                noteTitle: 'Важно',
-                note:       'Макулатура должна быть сухой, без масла и сильных загрязнений.'
+                steps: [
+                    { icon: 'fa-solid fa-layer-group', text: 'Спрессовать' },
+                    { icon: 'fa-solid fa-droplet-slash', text: 'Сухая' },
+                    { icon: 'fa-solid fa-magnet', text: 'Убрать металл' }
+                ]
             },
             {
                 title:       'Стеклобой',
@@ -89,8 +96,11 @@ function siteApp() {
                     'чистое оконное стекло',
                     'крупные партии для вывоза'
                 ],
-                noteTitle: 'Подготовка',
-                note:       'Керамику, мусор, металл и пластик лучше отделить заранее.'
+                steps: [
+                    { icon: 'fa-solid fa-bottle-water', text: 'Убрать крышки' },
+                    { icon: 'fa-solid fa-shapes', text: 'Без керамики' },
+                    { icon: 'fa-solid fa-broom', text: 'Чистое' }
+                ]
             },
             {
                 title:       'Полимеры',
@@ -104,8 +114,11 @@ function siteApp() {
                     'канистры ПНД',
                     'пластиковые ящики и тара'
                 ],
-                noteTitle: 'Рекомендация',
-                note:       'Пластик лучше сжать, удалить остатки жидкостей и отделить от бумаги.'
+                steps: [
+                    { icon: 'fa-solid fa-compress', text: 'Сплющить' },
+                    { icon: 'fa-solid fa-droplet-slash', text: 'Без жидкостей' },
+                    { icon: 'fa-solid fa-tag', text: 'Снять этикетки' }
+                ]
             },
             {
                 title:       'Металл и лом',
@@ -119,8 +132,11 @@ function siteApp() {
                     'металлические элементы техники',
                     'партии от организаций'
                 ],
-                noteTitle: 'Проверка',
-                note:       'Состав, засорённость и документы уточняются до вывоза.'
+                steps: [
+                    { icon: 'fa-solid fa-magnet', text: 'Отделить' },
+                    { icon: 'fa-solid fa-oil-can', text: 'Без масла' },
+                    { icon: 'fa-solid fa-weight-hanging', text: 'Уточнить вес' }
+                ]
             },
             {
                 title:       'Вывоз вторсырья',
@@ -134,8 +150,11 @@ function siteApp() {
                     'согласование времени',
                     'регулярный график для бизнеса'
                 ],
-                noteTitle: 'Ориентир',
-                note:       'Для стандартного вывоза обычно рассматриваются партии от 100 кг.'
+                steps: [
+                    { icon: 'fa-solid fa-camera', text: 'Сфотографировать' },
+                    { icon: 'fa-solid fa-scale-balanced', text: 'Оценить объём' },
+                    { icon: 'fa-solid fa-clock', text: 'Согласовать время' }
+                ]
             },
             {
                 title:       'Самовывоз на склад',
@@ -149,10 +168,14 @@ function siteApp() {
                     'предварительный звонок желателен',
                     'оценка качества на месте'
                 ],
-                noteTitle: 'Перед приездом',
-                note:       'Позвоните, чтобы уточнить актуальные условия и наличие приёмки.'
+                steps: [
+                    { icon: 'fa-solid fa-phone', text: 'Позвонить' },
+                    { icon: 'fa-solid fa-id-card', text: 'Паспорт' },
+                    { icon: 'fa-solid fa-boxes-packing', text: 'Упаковать' }
+                ]
             }
         ],
+
 
         /* ── Service rules ────────────────────────────────────── */
         serviceRules: [
@@ -505,6 +528,11 @@ function siteApp() {
                     this.mobileMenu = false;
                 }
             });
+
+            /* Scroll-triggered fade-up animations — run after next tick so DOM is settled */
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => this.initFadeUp());
+            });
         },
 
 
@@ -569,6 +597,67 @@ function siteApp() {
                 else if (this.accessibilityMode === 'colorblind')      themeMeta.setAttribute('content', '#005f99');
                 else                                                   themeMeta.setAttribute('content', '#0f5f3a');
             }
-        }
+        },
+
+        /* ── Toast notification ─────────────────────────────── */
+        showToast(msg) {
+            this.toastMessage = msg;
+            this.toastVisible = true;
+            if (this.toastTimeout) clearTimeout(this.toastTimeout);
+            this.toastTimeout = setTimeout(() => {
+                this.toastVisible = false;
+            }, 2500);
+        },
+
+        /* ── Clipboard copy ─────────────────────────────────── */
+        async copyToClipboard(text, label) {
+            try {
+                await navigator.clipboard.writeText(text);
+                this.showToast(label ? `Скопировано: ${label}` : 'Скопировано в буфер');
+            } catch (_) {
+                this.showToast('Не удалось скопировать');
+            }
+        },
+
+        /* ── FAQ filter ─────────────────────────────────────── */
+        get filteredFaqs() {
+            if (!this.faqSearch.trim()) return this.faqs;
+            const q = this.faqSearch.toLowerCase();
+            return this.faqs.filter(f =>
+                f.question.toLowerCase().includes(q) ||
+                f.answer.toLowerCase().includes(q)
+            );
+        },
+
+        /* ── Scroll animations (IntersectionObserver) ───────── */
+        initFadeUp() {
+            // Mark body as JS-ready so CSS knows animations are active
+            document.body.classList.add('js-ready');
+
+            if (!window.IntersectionObserver) {
+                // Fallback: show everything if IO not supported
+                document.querySelectorAll('.fade-up').forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+            document.querySelectorAll('.fade-up').forEach(el => {
+                // If element is already in viewport on load, show immediately
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.classList.add('is-visible');
+                } else {
+                    observer.observe(el);
+                }
+            });
+        },
     };
 }

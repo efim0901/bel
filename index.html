@@ -177,7 +177,7 @@
     </div>
 
     <!-- Sticky header -->
-    <header class="sticky top-0 z-50 border-b border-white/60 bg-white/95" role="banner">
+    <header class="sticky top-0 z-50 border-b border-white/60 bg-white/80 backdrop-blur-xl" role="banner">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
             <div class="flex min-h-[64px] items-center justify-between gap-3">
 
@@ -490,6 +490,9 @@
                 <div class="hero-panel">
                     <div class="hero-media" role="img" aria-label="Контейнеры для сбора отходов"></div>
                     <div class="hero-shade" aria-hidden="true"></div>
+                    <div class="hero-orb orb-1" aria-hidden="true"></div>
+                    <div class="hero-orb orb-2" aria-hidden="true"></div>
+                    <div class="hero-orb orb-3" aria-hidden="true"></div>
                     <div class="hero-content">
                         <div class="eyebrow">
                             <span class="pulse-dot" aria-hidden="true"></span>
@@ -512,7 +515,7 @@
                         </div>
                     </div>
                     <!-- Metrics bar -->
-                    <div class="hero-metrics" aria-label="Ключевые показатели">
+                    <div class="hero-metrics fade-up" aria-label="Ключевые показатели">
                         <div class="metric-card">
                             <span>с 2010</span>
                             <p>опыт в отрасли</p>
@@ -529,17 +532,17 @@
                 </div>
 
                 <div class="mt-10 grid gap-4 md:grid-cols-3">
-                    <article class="signal-card">
+                    <article class="signal-card fade-up">
                         <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
                         <h2>Вывозим своим транспортом</h2>
                         <p>Согласуем объём, адрес, время и формат погрузки. Для предприятий возможен регулярный график.</p>
                     </article>
-                    <article class="signal-card">
+                    <article class="signal-card fade-up" style="transition-delay:80ms">
                         <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
                         <h2>Работаем прозрачно</h2>
                         <p>Условия приёма зависят от типа сырья, качества и объёма. Актуальную цену подтверждаем перед вывозом.</p>
                     </article>
-                    <article class="signal-card">
+                    <article class="signal-card fade-up" style="transition-delay:160ms">
                         <i class="fa-solid fa-file-invoice" aria-hidden="true"></i>
                         <h2>Документы для бизнеса</h2>
                         <p>Договоры, акты и реквизиты. Помогаем закрывать вопрос с отходами без лишней административной нагрузки.</p>
@@ -554,7 +557,7 @@
 
                 <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
                     <template x-for="step in processSteps" :key="step.title">
-                        <article class="process-card">
+                        <article class="process-card fade-up">
                             <div class="process-index" x-text="step.number" aria-hidden="true"></div>
                             <div class="process-icon" aria-hidden="true"><i :class="step.icon"></i></div>
                             <h3 x-text="step.title"></h3>
@@ -563,7 +566,7 @@
                     </template>
                 </div>
 
-                <div class="split-feature mt-24">
+                <div class="split-feature mt-24 fade-up">
                     <div>
                         <span class="section-kicker">Что принимаем</span>
                         <h2 class="mt-3 font-display text-3xl font-black tracking-normal text-graphite-900 md:text-5xl">
@@ -575,7 +578,7 @@
                     </div>
                     <div class="grid gap-3 sm:grid-cols-2">
                         <template x-for="direction in quickDirections" :key="direction.title">
-                            <button class="direction-tile" type="button" @click="setTab(direction.tab)">
+                            <button class="direction-tile fade-up" type="button" @click="setTab(direction.tab)">
                                 <i :class="direction.icon" aria-hidden="true"></i>
                                 <span x-text="direction.title"></span>
                                 <small x-text="direction.text"></small>
@@ -585,7 +588,7 @@
                 </div>
 
                 <div class="mt-24 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-                    <article class="dark-panel">
+                    <article class="dark-panel fade-up">
                         <span class="section-kicker text-brand-300">Ответственный подход</span>
                         <h2>Серьёзная переработка начинается с порядка на входе.</h2>
                         <p>Сухая макулатура, отсортированный пластик, чистое стекло и заранее согласованная техника уменьшают простой, повышают ценность сырья и ускоряют расчёт.</p>
@@ -595,7 +598,7 @@
                             <div class="dark-mini"><strong>Вывоз</strong><span>по договорённости</span></div>
                         </div>
                     </article>
-                    <article class="contact-preview">
+                    <article class="contact-preview fade-up" style="transition-delay:120ms">
                         <span class="section-kicker">Быстрая связь</span>
                         <h2>Опишите сырьё и примерный объём.</h2>
                         <p>Менеджер подскажет, какие условия приёма подходят именно вашему случаю.</p>
@@ -613,7 +616,7 @@
         </section>
 
         <!-- ===== SERVICES ===== -->
-        <section x-show="currentTab === 'services'" x-transition.opacity.duration.250ms x-cloak aria-label="Услуги и цены">
+        <section x-show="currentTab === 'services'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4" x-cloak aria-label="Услуги и цены">
             <div class="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-20">
                 <div class="page-intro">
                     <span>Услуги и цены</span>
@@ -623,7 +626,7 @@
 
                 <div class="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
                     <template x-for="service in services" :key="service.title">
-                        <article class="service-card">
+                        <article class="service-card fade-up">
                             <div class="service-topline">
                                 <div class="service-icon" :class="service.tone" aria-hidden="true"><i :class="service.icon"></i></div>
                                 <span class="service-price" x-text="service.price"></span>
@@ -635,16 +638,23 @@
                                     <li><i class="fa-solid fa-check" aria-hidden="true"></i><span x-text="item"></span></li>
                                 </template>
                             </ul>
-                            <div class="service-note">
-                                <strong x-text="service.noteTitle"></strong>
-                                <span x-text="service.note"></span>
+                                                        <div class="service-infographic">
+                                <template x-for="(step, idx) in service.steps" :key="idx">
+                                    <div class="info-step" :class="idx < service.steps.length - 1 ? 'has-connector' : ''">
+                                        <div class="info-icon-wrap" aria-hidden="true">
+                                            <i :class="step.icon"></i>
+                                            <span class="info-number" x-text="'0' + (idx + 1)"></span>
+                                        </div>
+                                        <span class="info-label" x-text="step.text"></span>
+                                    </div>
+                                </template>
                             </div>
                         </article>
                     </template>
                 </div>
 
                 <div class="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-                    <article class="rules-panel">
+                    <article class="rules-panel fade-up">
                         <span class="section-kicker">Подготовка сырья</span>
                         <h2>Чем аккуратнее подготовка, тем быстрее приём.</h2>
                         <p>Мы не требуем идеальной чистоты, но базовая сортировка помогает сохранить стоимость сырья и ускорить погрузку.</p>
@@ -658,7 +668,7 @@
                         </div>
                     </article>
 
-                    <article class="price-panel">
+                    <article class="price-panel fade-up" style="transition-delay:120ms">
                         <span class="section-kicker">Как узнать цену</span>
                         <h2>Назовите материал, объём и адрес.</h2>
                         <p>После этого можно быстро понять: выгоднее привезти сырьё самостоятельно, заказать вывоз или оформить регулярный график.</p>
@@ -682,7 +692,7 @@
 
                 <div class="mt-10 grid gap-5 md:grid-cols-3">
                     <template x-for="condition in serviceConditions" :key="condition.title">
-                        <article class="condition-card">
+                        <article class="condition-card fade-up">
                             <i :class="condition.icon" aria-hidden="true"></i>
                             <h3 x-text="condition.title"></h3>
                             <p x-text="condition.text"></p>
@@ -693,7 +703,7 @@
         </section>
 
         <!-- ===== EQUIPMENT ===== -->
-        <section x-show="currentTab === 'equipment'" x-transition.opacity.duration.250ms x-cloak aria-label="Техника и отходы">
+        <section x-show="currentTab === 'equipment'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4" x-cloak aria-label="Техника и отходы">
             <div class="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-20">
                 <div class="page-intro">
                     <span>Техника и отходы</span>
@@ -703,7 +713,7 @@
 
                 <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
                     <template x-for="item in equipmentItems" :key="item.title">
-                        <article class="equipment-card">
+                        <article class="equipment-card fade-up">
                             <div class="equipment-icon" aria-hidden="true"><i :class="item.icon"></i></div>
                             <h2 x-text="item.title"></h2>
                             <p x-text="item.text"></p>
@@ -713,7 +723,7 @@
                 </div>
 
                 <div class="mt-14 grid gap-6 lg:grid-cols-[1fr_1fr]">
-                    <article class="timeline-panel">
+                    <article class="timeline-panel fade-up">
                         <span class="section-kicker">Как согласовать утилизацию</span>
                         <h2>Для техники важны состав, количество и состояние.</h2>
                         <div class="mt-8 space-y-5">
@@ -726,7 +736,7 @@
                         </div>
                     </article>
 
-                    <article class="document-panel">
+                    <article class="document-panel fade-up" style="transition-delay:120ms">
                         <span class="section-kicker">Важно</span>
                         <h2>Не все отходы принимаются одинаково.</h2>
                         <p>Перед доставкой или вывозом нужно согласовать категорию отхода. Для ламп, техники и производственных остатков условия могут отличаться от обычного вторсырья.</p>
@@ -748,7 +758,7 @@
 
                 <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                     <template x-for="category in equipmentCategories" :key="category.title">
-                        <article class="category-card">
+                        <article class="category-card fade-up">
                             <i :class="category.icon" aria-hidden="true"></i>
                             <div><h3 x-text="category.title"></h3><p x-text="category.text"></p></div>
                         </article>
@@ -758,7 +768,7 @@
         </section>
 
         <!-- ===== BUSINESS ===== -->
-        <section x-show="currentTab === 'business'" x-transition.opacity.duration.250ms x-cloak aria-label="Для бизнеса">
+        <section x-show="currentTab === 'business'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4" x-cloak aria-label="Для бизнеса">
             <div class="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-20">
                 <div class="page-intro">
                     <span>Для бизнеса</span>
@@ -768,7 +778,7 @@
 
                 <div class="mt-12 grid gap-6 lg:grid-cols-3">
                     <template x-for="business in businessFeatures" :key="business.title">
-                        <article class="business-feature">
+                        <article class="business-feature fade-up">
                             <i :class="business.icon" aria-hidden="true"></i>
                             <h2 x-text="business.title"></h2>
                             <p x-text="business.text"></p>
@@ -776,7 +786,7 @@
                     </template>
                 </div>
 
-                <div class="business-shell mt-14 overflow-hidden rounded-lg border border-graphite-200 bg-white shadow-subtle">
+                <div class="business-shell mt-14 fade-up overflow-hidden rounded-lg border border-graphite-200 bg-white shadow-subtle">
                     <div class="grid lg:grid-cols-[0.8fr_1.2fr]">
                         <div class="business-aside">
                             <span class="section-kicker text-brand-300">Сценарии</span>
@@ -795,7 +805,7 @@
                 </div>
 
                 <div class="mt-14 grid gap-6 lg:grid-cols-[1fr_1fr]">
-                    <article class="docs-panel">
+                    <article class="docs-panel fade-up">
                         <span class="section-kicker">Документы</span>
                         <h2>Реквизиты и оформление собраны в одном месте.</h2>
                         <div class="mt-7 grid gap-4">
@@ -808,7 +818,7 @@
                         </div>
                     </article>
 
-                    <article class="schedule-panel">
+                    <article class="schedule-panel fade-up" style="transition-delay:120ms">
                         <span class="section-kicker">Регулярный вывоз</span>
                         <h2>Подходит, если отходы появляются постоянно.</h2>
                         <p>Можно согласовать периодичность: по звонку, еженедельно, несколько раз в месяц или по накоплению объёма.</p>
@@ -824,7 +834,7 @@
         </section>
 
         <!-- ===== PARTNERS ===== -->
-        <section x-show="currentTab === 'partners'" x-transition.opacity.duration.250ms x-cloak aria-label="Партнёры">
+        <section x-show="currentTab === 'partners'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4" x-cloak aria-label="Партнёры">
             <div class="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-20">
                 <div class="page-intro">
                     <span>Партнёры</span>
@@ -834,12 +844,12 @@
 
                 <div class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
                     <template x-for="partner in partners" :key="partner">
-                        <article class="partner-card"><span x-text="partner"></span></article>
+                        <article class="partner-card fade-up"><span x-text="partner"></span></article>
                     </template>
                 </div>
 
                 <div class="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-                    <article class="trust-panel">
+                    <article class="trust-panel fade-up">
                         <span class="section-kicker">Форматы сотрудничества</span>
                         <h2>От разового вывоза до постоянного графика.</h2>
                         <p>Компания может быть полезна торговым сетям, производствам, офисам, складам, учебным и государственным учреждениям.</p>
@@ -853,7 +863,7 @@
                         </div>
                     </article>
 
-                    <article class="stats-board">
+                    <article class="stats-board fade-up" style="transition-delay:120ms">
                         <div class="stat-line"><span>2010</span><p>год начала работы</p></div>
                         <div class="stat-line"><span>491 333 347</span><p>УНП компании для проверки реквизитов</p></div>
                         <div class="stat-line"><span>Гомель</span><p>основная зона работы: город и область</p></div>
@@ -867,17 +877,17 @@
                 </div>
 
                 <div class="mt-10 grid gap-5 md:grid-cols-3">
-                    <article class="condition-card">
+                    <article class="condition-card fade-up">
                         <i class="fa-solid fa-list-check" aria-hidden="true"></i>
                         <h3>Условия до выезда</h3>
                         <p>Согласование снижает риск отказа, простоя и непонятной цены на месте.</p>
                     </article>
-                    <article class="condition-card">
+                    <article class="condition-card fade-up">
                         <i class="fa-solid fa-file-circle-check" aria-hidden="true"></i>
                         <h3>Документы и реквизиты</h3>
                         <p>Контактная информация и банковские данные доступны без поиска по сайту.</p>
                     </article>
-                    <article class="condition-card">
+                    <article class="condition-card fade-up">
                         <i class="fa-solid fa-route" aria-hidden="true"></i>
                         <h3>Логистика</h3>
                         <p>Вывоз, самовывоз и регулярный график вынесены в понятные сценарии.</p>
@@ -887,7 +897,7 @@
         </section>
 
         <!-- ===== FAQ ===== -->
-        <section x-show="currentTab === 'faq'" x-transition.opacity.duration.250ms x-cloak aria-label="Частые вопросы">
+        <section x-show="currentTab === 'faq'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4" x-cloak aria-label="Частые вопросы">
             <div class="mx-auto max-w-5xl px-4 py-12 lg:px-8 lg:py-20">
                 <div class="page-intro text-center">
                     <span>FAQ</span>
@@ -895,9 +905,35 @@
                     <p>Ответы помогают заранее понять, что подготовить перед звонком и почему цена может отличаться от одного случая к другому.</p>
                 </div>
 
+                <!-- FAQ Search -->
+                <div class="faq-search-wrap fade-up">
+                    <div class="faq-search-inner">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <input
+                            type="search"
+                            x-model="faqSearch"
+                            placeholder="Поиск по вопросам..."
+                            aria-label="Поиск по вопросам"
+                            class="faq-search-input"
+                        >
+                        <button
+                            x-show="faqSearch.length"
+                            @click="faqSearch = ''"
+                            class="faq-search-clear"
+                            aria-label="Очистить поиск"
+                            type="button"
+                        >
+                            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <p x-show="faqSearch.length && filteredFaqs.length === 0" x-cloak class="faq-search-empty">
+                        Ничего не найдено. Попробуйте другие слова.
+                    </p>
+                </div>
+
                 <div class="mt-12 space-y-4" role="list">
-                    <template x-for="(item, index) in faqs" :key="item.question">
-                        <article class="faq-item" :class="activeFaq === index ? 'faq-item-open' : ''" role="listitem">
+                    <template x-for="(item, index) in filteredFaqs" :key="item.question">
+                        <article class="faq-item fade-up" :class="activeFaq === index ? 'faq-item-open' : ''" role="listitem">
                             <button
                                 type="button"
                                 @click="activeFaq = activeFaq === index ? null : index"
@@ -922,7 +958,7 @@
                     </template>
                 </div>
 
-                <div class="faq-bottom">
+                <div class="faq-bottom fade-up">
                     <div>
                         <span class="section-kicker">Не нашли ответ?</span>
                         <h2>Лучше уточнить по телефону до погрузки.</h2>
@@ -934,7 +970,7 @@
         </section>
 
         <!-- ===== CONTACTS ===== -->
-        <section x-show="currentTab === 'contacts'" x-transition.opacity.duration.250ms x-cloak aria-label="Контакты">
+        <section x-show="currentTab === 'contacts'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4" x-cloak aria-label="Контакты">
             <div class="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-20">
                 <div class="page-intro">
                     <span>Контакты</span>
@@ -944,7 +980,7 @@
 
                 <div class="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
                     <div class="space-y-6">
-                        <article class="contact-card">
+                        <article class="contact-card fade-up">
                             <h2><i class="fa-solid fa-address-card" aria-hidden="true"></i> Контактная информация</h2>
                             <div class="mt-7 space-y-5">
                                 <template x-for="contact in contacts" :key="contact.title">
@@ -958,7 +994,17 @@
                                             <template x-if="contact.type === 'links'">
                                                 <div class="space-y-1">
                                                     <template x-for="link in contact.links" :key="link.href">
-                                                        <a :href="link.href" x-text="link.label"></a>
+                                                        <div class="contact-link-row">
+                                                            <a :href="link.href" x-text="link.label"></a>
+                                                            <button
+                                                                type="button"
+                                                                class="contact-copy-btn"
+                                                                @click.prevent="copyToClipboard(link.label, 'Контакт')"
+                                                                :aria-label="'Копировать ' + link.label"
+                                                            >
+                                                                <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
                                                     </template>
                                                 </div>
                                             </template>
@@ -968,13 +1014,23 @@
                             </div>
                         </article>
 
-                        <article class="requisites-card">
+                        <article class="requisites-card fade-up" style="transition-delay:120ms">
                             <h2>Реквизиты</h2>
                             <div class="mt-6 grid gap-4">
                                 <template x-for="req in requisites" :key="req.label">
                                     <div class="req-row">
                                         <span x-text="req.label"></span>
-                                        <strong x-text="req.value"></strong>
+                                        <div class="req-value-wrap">
+                                            <strong x-text="req.value"></strong>
+                                            <button
+                                                type="button"
+                                                class="req-copy-btn"
+                                                @click="copyToClipboard(req.value, req.label)"
+                                                :aria-label="'Копировать ' + req.label"
+                                            >
+                                                <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </template>
                             </div>
@@ -982,7 +1038,7 @@
                     </div>
 
                     <div class="space-y-6">
-                        <article class="map-card">
+                        <article class="map-card fade-up">
                             <iframe
                                 title="Карта: ООО БелВторПереработка, г. Гомель, ул. 10 лет Октября, 1-2"
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2432.222765873495!2d30.9844!3d52.441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d469a5310344b1%3A0x6a05973809054790!2z0YPQuy4gMTAg0LvQtdGCINCe0LrRgtGP0LHRgNGPLCAxLCDQk9C-0LzQtdC70Yw!5e0!3m2!1sru!2sby!4v1700000000000!5m2!1sru!2sby"
@@ -996,7 +1052,7 @@
                             </div>
                         </article>
 
-                        <article class="request-card">
+                        <article class="request-card fade-up" style="transition-delay:120ms">
                             <span class="section-kicker">Как оставить заявку</span>
                             <h2>Без формы, которая ничего не отправляет.</h2>
                             <p>Основной сценарий — звонок или письмо. В сообщении укажите тип сырья, примерный объём, адрес и желаемую дату.</p>
@@ -1065,6 +1121,26 @@
     <a class="floating-call" href="tel:+375296989237" aria-label="Позвонить +375 29 698-92-37">
         <i class="fa-solid fa-phone" aria-hidden="true"></i>
     </a>
+
+    <!-- Toast notification -->
+    <div
+        class="toast-container"
+        x-show="toastVisible"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+        x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+        x-cloak
+        role="status"
+        aria-live="polite"
+    >
+        <div class="toast-inner">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <span x-text="toastMessage"></span>
+        </div>
+    </div>
 
     <noscript>
         <div class="noscript-message" role="alert">
