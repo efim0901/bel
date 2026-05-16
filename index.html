@@ -257,7 +257,8 @@
                 <!-- Mobile menu toggle -->
                 <button
                     type="button"
-                    class="mobile-toggle xl:hidden"
+                    class="mobile-toggle inline-flex xl:hidden"
+                    :class="mobileMenu ? 'mobile-toggle-active' : ''"
                     @click="mobileMenu = !mobileMenu"
                     :aria-expanded="mobileMenu.toString()"
                     aria-label="Открыть меню навигации"
