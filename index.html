@@ -148,27 +148,27 @@
 
     <!-- Top info bar -->
     <div class="top-line" role="complementary" aria-label="Контактная информация">
-        <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold text-white/86">
-                <span class="inline-flex items-center gap-2">
-                    <i class="fa-solid fa-location-dot text-brand-300" aria-hidden="true"></i>
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8">
+            <div class="flex items-center">
+                <span class="info-chip">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                     Гомель и область
                 </span>
-                <span class="inline-flex items-center gap-2">
-                    <i class="fa-solid fa-clock text-brand-300" aria-hidden="true"></i>
+                <span class="info-chip hidden sm:inline-flex">
+                    <i class="fa-solid fa-clock" aria-hidden="true"></i>
                     Пн–Пт: 09:00–17:00
                 </span>
-                <span class="hidden items-center gap-2 md:inline-flex">
-                    <i class="fa-solid fa-file-signature text-brand-300" aria-hidden="true"></i>
-                    Работаем с физическими и юридическими лицами
+                <span class="info-chip hidden md:inline-flex">
+                    <i class="fa-solid fa-file-signature" aria-hidden="true"></i>
+                    Физ. и юр. лица
                 </span>
             </div>
-            <div class="flex items-center gap-3 text-xs font-bold text-white">
-                <a class="top-link" href="tel:+375291775228" aria-label="Позвонить по номеру +375 29 177-52-28">
+            <div class="flex items-center gap-1">
+                <a class="top-link" href="tel:+375291775228" aria-label="Позвонить +375 29 177-52-28">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i>
                     +375 (29) 177-52-28
                 </a>
-                <a class="top-link hidden sm:inline-flex" href="mailto:belvtorpererabotka@rambler.ru" aria-label="Написать на email">
+                <a class="top-link hidden sm:inline-flex" href="mailto:belvtorpererabotka@rambler.ru" aria-label="Email">
                     <i class="fa-solid fa-envelope" aria-hidden="true"></i>
                     Email
                 </a>
@@ -179,7 +179,7 @@
     <!-- Sticky header -->
     <header class="sticky top-0 z-50 border-b border-white/60 bg-white/82 backdrop-blur-2xl" role="banner">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
-            <div class="flex min-h-[78px] items-center justify-between gap-4">
+            <div class="flex min-h-[64px] items-center justify-between gap-3">
 
                 <!-- Logo -->
                 <button class="brand-lockup group" type="button" @click="setTab('home')" aria-label="Перейти на главную страницу">
@@ -193,7 +193,7 @@
                 </button>
 
                 <!-- Desktop nav -->
-                <nav class="hidden items-center gap-1 xl:flex" aria-label="Основная навигация">
+                <nav class="nav-track hidden xl:flex" aria-label="Основная навигация">
                     <template x-for="item in navItems" :key="item.id">
                         <button
                             type="button"
@@ -209,8 +209,8 @@
                 </nav>
 
                 <!-- Right cluster: settings + phone + contacts -->
-                <div class="hidden items-center gap-2 2xl:flex">
-                    <!-- Settings trigger — replaces bulky inline toggles -->
+                <div class="header-actions hidden items-center 2xl:flex">
+                    <!-- Settings trigger -->
                     <button
                         type="button"
                         class="settings-trigger"
@@ -220,7 +220,6 @@
                         :title="'Настройки' + (themeMode === 'dark' ? ' · тёмная тема' : '') + (accessibilityMode === 'colorblind' ? ' · режим дальтоника' : '')"
                     >
                         <i class="fa-solid fa-sliders" aria-hidden="true"></i>
-                        <!-- Active-mode indicator dots -->
                         <span class="settings-dots" aria-hidden="true">
                             <span class="dot-dark"  x-show="themeMode === 'dark'"></span>
                             <span class="dot-cb"    x-show="accessibilityMode === 'colorblind'"></span>
@@ -230,7 +229,7 @@
                     <a class="header-phone" href="tel:+375296989237" aria-label="Звонить +375 29 698-92-37">
                         <span class="text-right">
                             <span class="block text-[10px] font-bold uppercase text-graphite-500" style="letter-spacing:.18em">Заявки</span>
-                            <span class="block text-sm font-black text-graphite-900">+375 (29) 698-92-37</span>
+                        <span class="block text-xs font-black text-graphite-900">+375 (29) 698-92-37</span>
                         </span>
                         <span class="phone-orb" aria-hidden="true"><i class="fa-solid fa-phone"></i></span>
                     </a>
@@ -240,7 +239,7 @@
                     </button>
                 </div>
 
-                <!-- Settings trigger (lg, before 2xl) — icon only -->
+                <!-- Settings trigger (lg, before 2xl) -->
                 <button
                     type="button"
                     class="hidden settings-trigger-sm lg:inline-flex 2xl:hidden"
@@ -502,7 +501,7 @@
                             </button>
                         </div>
                     </div>
-                    <!-- Metrics bar — kept inside hero-panel, z-index fixed in CSS -->
+                    <!-- Metrics bar -->
                     <div class="hero-metrics" aria-label="Ключевые показатели">
                         <div class="metric-card">
                             <span>с 2010</span>
