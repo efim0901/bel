@@ -148,29 +148,28 @@
 
     <!-- Top info bar -->
     <div class="top-line" role="complementary" aria-label="Контактная информация">
-        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8">
-            <div class="flex items-center">
-                <span class="info-chip">
+        <div class="top-line-inner">
+            <!-- Left: location + schedule -->
+            <div class="top-line-left">
+                <span class="info-chip info-chip-main">
                     <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                    Гомель и область
+                    <span class="info-chip-text">Гомель и область</span>
                 </span>
-                <span class="info-chip hidden sm:inline-flex">
+                <span class="info-chip info-chip-secondary">
                     <i class="fa-solid fa-clock" aria-hidden="true"></i>
-                    Пн–Пт: 09:00–17:00
-                </span>
-                <span class="info-chip hidden md:inline-flex">
-                    <i class="fa-solid fa-file-signature" aria-hidden="true"></i>
-                    Физ. и юр. лица
+                    <span class="info-chip-text">Пн–Пт: 09:00–17:00</span>
                 </span>
             </div>
-            <div class="flex items-center gap-1">
-                <a class="top-link" href="tel:+375291775228" aria-label="Позвонить +375 29 177-52-28">
+            <!-- Right: phone (compact on mobile) -->
+            <div class="top-line-right">
+                <a class="top-link top-link-phone" href="tel:+375291775228" aria-label="Позвонить +375 29 177-52-28">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i>
-                    +375 (29) 177-52-28
+                    <span class="top-link-full">+375 (29) 177-52-28</span>
+                    <span class="top-link-short">+375 (29) 177-52-28</span>
                 </a>
-                <a class="top-link hidden sm:inline-flex" href="mailto:belvtorpererabotka@rambler.ru" aria-label="Email">
+                <a class="top-link top-link-email hidden sm:inline-flex" href="mailto:belvtorpererabotka@rambler.ru" aria-label="Email">
                     <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                    Email
+                    <span>Email</span>
                 </a>
             </div>
         </div>
