@@ -17,11 +17,59 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://unpkg.com">
-    <link rel="dns-prefetch" href="https://images.unsplash.com">
 
-    <!-- Preload Hero Image (LCP fix) -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1200&auto=format&fit=crop" fetchpriority="high" type="image/webp">
+    <!-- CRITICAL: Preload LCP image — img tag loads it with fetchpriority -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&q=80&auto=format" fetchpriority="high">
+
+    <!-- CRITICAL: Inline font-face declarations for CLS prevention -->
+    <style>
+        @font-face {
+            font-family: 'Unbounded';
+            font-style: normal;
+            font-weight: 400 900;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/unbounded/v8/Yq6V-LOTTbQKKg-MaF5N4z3G.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400 800;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2) format('woff2');
+        }
+        /* Critical layout — prevents FOUC and CLS */
+        [x-cloak] { display: none !important; }
+        .hero-panel {
+            position: relative;
+            min-height: 640px;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #0b4c31;
+            contain: layout paint;
+        }
+        .hero-bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .hero-bg-img.loaded { opacity: 1; }
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            z-index: 100;
+            background: linear-gradient(90deg, #48ae76, #0f5f3a, #7ec99e);
+            width: 0%;
+            will-change: width;
+        }
+    </style>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -136,9 +184,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Icons -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <!-- Icons: async load to avoid render-blocking -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
 
     <!-- Site styles -->
     <link href="assets/css/styles.css" rel="stylesheet">
@@ -181,7 +229,7 @@
     </div>
 
     <!-- Sticky header -->
-    <header class="sticky top-0 z-50 border-b border-white/60 bg-white/80 backdrop-blur-xl" role="banner">
+    <header class="sticky top-0 z-50 border-b border-white/60 bg-white/95" role="banner">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
             <div class="flex min-h-[64px] items-center justify-between gap-3">
 
@@ -492,11 +540,22 @@
         <section x-show="currentTab === 'home'" x-cloak aria-label="Главная">
             <div class="mx-auto max-w-7xl px-4 pb-16 pt-8 lg:px-8 lg:pb-24">
                 <div class="hero-panel">
-                    <div class="hero-media" role="img" aria-label="Контейнеры для сбора отходов"></div>
+                    <!-- LCP: img tag с fetchpriority вместо CSS background-image -->
+                    <img
+                        src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&q=80&auto=format"
+                        srcset="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&q=80&auto=format 400w,
+                                https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&q=80&auto=format 800w,
+                                https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=1200&q=80&auto=format 1200w"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                        alt="Контейнеры для сбора отходов"
+                        class="hero-bg-img"
+                        fetchpriority="high"
+                        decoding="async"
+                        width="1200"
+                        height="800"
+                        @load="$el.classList.add('loaded')"
+                    >
                     <div class="hero-shade" aria-hidden="true"></div>
-                    <div class="hero-orb orb-1" aria-hidden="true"></div>
-                    <div class="hero-orb orb-2" aria-hidden="true"></div>
-                    <div class="hero-orb orb-3" aria-hidden="true"></div>
                     <div class="hero-content">
                         <div class="eyebrow">
                             <span class="pulse-dot" aria-hidden="true"></span>
