@@ -1,6 +1,6 @@
 /* ============================================================
    БелВторПереработка — app.js
-   v2.0 — settings panel, setTheme, full data, hash routing
+   v3.0 — Performance optimized, UI enhanced, Lighthouse fixes
    ============================================================ */
 
 function siteApp() {
@@ -12,6 +12,10 @@ function siteApp() {
         activeFaq:        0,
         themeMode:        'light',
         accessibilityMode:'normal',
+        scrollProgress:   0,
+        toastVisible:     false,
+        toastMessage:     '',
+        faqSearch:        '',
 
         /* ── Navigation ───────────────────────────────────────── */
         navItems: [
@@ -61,117 +65,116 @@ function siteApp() {
         ],
 
         /* ── Services ─────────────────────────────────────────── */
-                services: [
-    {
-        title:       'Макулатура',
-        description: 'Приём картонной упаковки, офисной бумаги, архивов, газет, журналов и книжной продукции.',
-        icon:        'fa-solid fa-scroll',
-        tone:        'tone-green',
-        price:       'от 0.15 BYN/кг',
-        items: [
-            'картон и гофрокартон',
-            'офисная бумага и архивы',
-            'газеты, журналы, книги',
-            'производственная бумажная упаковка'
+        services: [
+            {
+                title:       'Макулатура',
+                description: 'Приём картонной упаковки, офисной бумаги, архивов, газет, журналов и книжной продукции.',
+                icon:        'fa-solid fa-scroll',
+                tone:        'tone-green',
+                price:       'от 0.15 BYN/кг',
+                items: [
+                    'картон и гофрокартон',
+                    'офисная бумага и архивы',
+                    'газеты, журналы, книги',
+                    'производственная бумажная упаковка'
+                ],
+                steps: [
+                    { icon: 'fa-solid fa-layer-group', text: 'Спрессовать' },
+                    { icon: 'fa-solid fa-droplet-slash', text: 'Сухая' },
+                    { icon: 'fa-solid fa-magnet', text: 'Убрать металл' }
+                ]
+            },
+            {
+                title:       'Стеклобой',
+                description: 'Сбор стеклянных бутылок, банок, чистого листового стекла и стеклянной тары по согласованию.',
+                icon:        'fa-solid fa-wine-bottle',
+                tone:        'tone-blue',
+                price:       'договорная',
+                items: [
+                    'бутылки и банки',
+                    'тарное стекло',
+                    'чистое оконное стекло',
+                    'крупные партии для вывоза'
+                ],
+                steps: [
+                    { icon: 'fa-solid fa-bottle-water', text: 'Убрать крышки' },
+                    { icon: 'fa-solid fa-shapes', text: 'Без керамики' },
+                    { icon: 'fa-solid fa-broom', text: 'Чистое' }
+                ]
+            },
+            {
+                title:       'Полимеры',
+                description: 'Приём отдельных видов пластикового сырья: ПЭТ, ПВД, стрейч, канистры, ящики и тара.',
+                icon:        'fa-solid fa-cubes',
+                tone:        'tone-amber',
+                price:       'по объёму',
+                items: [
+                    'ПЭТ-бутылка прозрачная и цветная',
+                    'плёнка ПВД и стрейч',
+                    'канистры ПНД',
+                    'пластиковые ящики и тара'
+                ],
+                steps: [
+                    { icon: 'fa-solid fa-compress', text: 'Сплющить' },
+                    { icon: 'fa-solid fa-droplet-slash', text: 'Без жидкостей' },
+                    { icon: 'fa-solid fa-tag', text: 'Снять этикетки' }
+                ]
+            },
+            {
+                title:       'Металл и лом',
+                description: 'Отдельные категории металлического лома принимаются по предварительному согласованию.',
+                icon:        'fa-solid fa-industry',
+                tone:        'tone-metal',
+                price:       'по заявке',
+                items: [
+                    'медный лом',
+                    'производственные остатки',
+                    'металлические элементы техники',
+                    'партии от организаций'
+                ],
+                steps: [
+                    { icon: 'fa-solid fa-magnet', text: 'Отделить' },
+                    { icon: 'fa-solid fa-oil-can', text: 'Без масла' },
+                    { icon: 'fa-solid fa-weight-hanging', text: 'Уточнить вес' }
+                ]
+            },
+            {
+                title:       'Вывоз вторсырья',
+                description: 'Организуем вывоз с территории предприятия, склада, магазина, офиса или частного адреса.',
+                icon:        'fa-solid fa-truck-fast',
+                tone:        'tone-green',
+                price:       'от объёма',
+                items: [
+                    'вывоз в черте города',
+                    'работа по области по договорённости',
+                    'согласование времени',
+                    'регулярный график для бизнеса'
+                ],
+                steps: [
+                    { icon: 'fa-solid fa-camera', text: 'Сфотографировать' },
+                    { icon: 'fa-solid fa-scale-balanced', text: 'Оценить объём' },
+                    { icon: 'fa-solid fa-clock', text: 'Согласовать время' }
+                ]
+            },
+            {
+                title:       'Самовывоз на склад',
+                description: 'Если объём небольшой или вам удобнее привезти сырьё самостоятельно, заранее согласуйте приём.',
+                icon:        'fa-solid fa-warehouse',
+                tone:        'tone-blue',
+                price:       'по факту',
+                items: [
+                    'адрес: ул. 10 лет Октября, 1-2',
+                    'приём по рабочему графику',
+                    'предварительный звонок желателен',
+                    'оценка качества на месте'
+                ],
+                steps: [
+                    { icon: 'fa-solid fa-phone', text: 'Позвонить' },
+                    { icon: 'fa-solid fa-id-card', text: 'Паспорт' },
+                    { icon: 'fa-solid fa-boxes-packing', text: 'Упаковать' }
+                ]
+            }
         ],
-        steps: [
-            { icon: 'fa-solid fa-layer-group', text: 'Спрессовать' },
-            { icon: 'fa-solid fa-droplet-slash', text: 'Сухая' },
-            { icon: 'fa-solid fa-magnet', text: 'Убрать металл' }
-        ]
-    },
-    {
-        title:       'Стеклобой',
-        description: 'Сбор стеклянных бутылок, банок, чистого листового стекла и стеклянной тары по согласованию.',
-        icon:        'fa-solid fa-wine-bottle',
-        tone:        'tone-blue',
-        price:       'договорная',
-        items: [
-            'бутылки и банки',
-            'тарное стекло',
-            'чистое оконное стекло',
-            'крупные партии для вывоза'
-        ],
-        steps: [
-            { icon: 'fa-solid fa-bottle-water', text: 'Убрать крышки' },
-            { icon: 'fa-solid fa-shapes', text: 'Без керамики' },
-            { icon: 'fa-solid fa-broom', text: 'Чистое' }
-        ]
-    },
-    {
-        title:       'Полимеры',
-        description: 'Приём отдельных видов пластикового сырья: ПЭТ, ПВД, стрейч, канистры, ящики и тара.',
-        icon:        'fa-solid fa-cubes',
-        tone:        'tone-amber',
-        price:       'по объёму',
-        items: [
-            'ПЭТ-бутылка прозрачная и цветная',
-            'плёнка ПВД и стрейч',
-            'канистры ПНД',
-            'пластиковые ящики и тара'
-        ],
-        steps: [
-            { icon: 'fa-solid fa-compress', text: 'Сплющить' },
-            { icon: 'fa-solid fa-droplet-slash', text: 'Без жидкостей' },
-            { icon: 'fa-solid fa-tag', text: 'Снять этикетки' }
-        ]
-    },
-    {
-        title:       'Металл и лом',
-        description: 'Отдельные категории металлического лома принимаются по предварительному согласованию.',
-        icon:        'fa-solid fa-industry',
-        tone:        'tone-metal',
-        price:       'по заявке',
-        items: [
-            'медный лом',
-            'производственные остатки',
-            'металлические элементы техники',
-            'партии от организаций'
-        ],
-        steps: [
-            { icon: 'fa-solid fa-magnet', text: 'Отделить' },
-            { icon: 'fa-solid fa-oil-can', text: 'Без масла' },
-            { icon: 'fa-solid fa-weight-hanging', text: 'Уточнить вес' }
-        ]
-    },
-    {
-        title:       'Вывоз вторсырья',
-        description: 'Организуем вывоз с территории предприятия, склада, магазина, офиса или частного адреса.',
-        icon:        'fa-solid fa-truck-fast',
-        tone:        'tone-green',
-        price:       'от объёма',
-        items: [
-            'вывоз в черте города',
-            'работа по области по договорённости',
-            'согласование времени',
-            'регулярный график для бизнеса'
-        ],
-        steps: [
-            { icon: 'fa-solid fa-camera', text: 'Сфотографировать' },
-            { icon: 'fa-solid fa-scale-balanced', text: 'Оценить объём' },
-            { icon: 'fa-solid fa-clock', text: 'Согласовать время' }
-        ]
-    },
-    {
-        title:       'Самовывоз на склад',
-        description: 'Если объём небольшой или вам удобнее привезти сырьё самостоятельно, заранее согласуйте приём.',
-        icon:        'fa-solid fa-warehouse',
-        tone:        'tone-blue',
-        price:       'по факту',
-        items: [
-            'адрес: ул. 10 лет Октября, 1-2',
-            'приём по рабочему графику',
-            'предварительный звонок желателен',
-            'оценка качества на месте'
-        ],
-        steps: [
-            { icon: 'fa-solid fa-phone', text: 'Позвонить' },
-            { icon: 'fa-solid fa-id-card', text: 'Паспорт' },
-            { icon: 'fa-solid fa-boxes-packing', text: 'Упаковать' }
-        ]
-    }
-],
-
 
         /* ── Service rules ────────────────────────────────────── */
         serviceRules: [
@@ -473,8 +476,18 @@ function siteApp() {
             { label: 'Адрес банка',       value: 'пр-т Жукова, 3, г. Минск, 220036' }
         ],
 
+        /* ── Computed: filtered FAQs ────────────────────────────── */
+        get filteredFaqs() {
+            if (!this.faqSearch.trim()) return this.faqs;
+            const q = this.faqSearch.toLowerCase();
+            return this.faqs.filter(f => 
+                f.question.toLowerCase().includes(q) || 
+                f.answer.toLowerCase().includes(q)
+            );
+        },
+
         /* ── Init ─────────────────────────────────────────────── */
-                init() {
+        init() {
             /* Restore persisted preferences */
             try {
                 const savedTheme  = localStorage.getItem('belvtor-theme');
@@ -502,7 +515,40 @@ function siteApp() {
                 }
             });
 
-            /* Close settings panel on Escape (also handled via @keydown in HTML) */
+            /* Performance: passive scroll listener for progress + parallax */
+            window.addEventListener('scroll', () => {
+                this.updateScrollProgress();
+                this.updateParallax();
+            }, { passive: true });
+
+            /* Performance: throttled mouse move for spotlight + cursor glow */
+            let ticking = false;
+            document.addEventListener('mousemove', (e) => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        this.updateSpotlight(e);
+                        this.updateCursorGlow(e);
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            /* Performance: IntersectionObserver for fade-up animations */
+            this.initIntersectionObserver();
+
+            /* Performance: debounced resize */
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (window.innerWidth >= 1280 && this.mobileMenu) {
+                        this.mobileMenu = false;
+                    }
+                }, 150);
+            });
+
+            /* Close settings panel on Escape */
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape' && this.settingsOpen) {
                     this.settingsOpen = false;
@@ -518,14 +564,91 @@ function siteApp() {
                 }
             });
 
-            /* Close mobile menu on resize to desktop */
-            window.addEventListener('resize', () => {
-                if (window.innerWidth >= 1280 && this.mobileMenu) {
-                    this.mobileMenu = false;
-                }
+            /* Magnetic buttons init */
+            this.initMagneticButtons();
+
+            /* Add js-ready class for no-JS fallback */
+            document.body.classList.add('js-ready');
+        },
+
+        /* ── Scroll Progress ──────────────────────────────────── */
+        updateScrollProgress() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            this.scrollProgress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        },
+
+        /* ── Parallax Hero (lightweight) ──────────────────────── */
+        updateParallax() {
+            const hero = document.querySelector('.hero-media');
+            if (!hero) return;
+            const scrollTop = window.scrollY;
+            const heroRect = hero.closest('.hero-panel')?.getBoundingClientRect();
+            if (!heroRect || heroRect.bottom < 0 || heroRect.top > window.innerHeight) return;
+            
+            const offset = scrollTop * 0.15;
+            hero.style.transform = `translate3d(0, ${offset}px, 0)`;
+        },
+
+        /* ── Spotlight Cards (CSS custom properties) ──────────── */
+        updateSpotlight(e) {
+            const cards = document.querySelectorAll('.spotlight-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
             });
         },
 
+        /* ── Cursor Glow ──────────────────────────────────────── */
+        updateCursorGlow(e) {
+            const glow = this.$refs.cursorGlow;
+            if (!glow) return;
+            glow.style.left = `${e.clientX}px`;
+            glow.style.top = `${e.clientY}px`;
+            glow.style.opacity = '1';
+            
+            // Hide glow when mouse stops
+            clearTimeout(this._glowTimeout);
+            this._glowTimeout = setTimeout(() => {
+                glow.style.opacity = '0';
+            }, 100);
+        },
+
+        /* ── IntersectionObserver for fade-up ─────────────────── */
+        initIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        },
+
+        /* ── Magnetic Buttons ─────────────────────────────────── */
+        initMagneticButtons() {
+            const buttons = document.querySelectorAll('.magnetic-button');
+            buttons.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = '';
+                });
+            });
+        },
 
         /* ── Navigation ───────────────────────────────────────── */
         setTab(tabId) {
@@ -545,7 +668,7 @@ function siteApp() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         },
 
-        /* ── Theme: explicit setter (used by settings panel cards) */
+        /* ── Theme: explicit setter ───────────────────────────── */
         setTheme(mode) {
             if (mode !== 'light' && mode !== 'dark') return;
             this.themeMode = mode;
@@ -553,7 +676,7 @@ function siteApp() {
             this.applyDisplayModes();
         },
 
-        /* ── Theme: toggle (used by mobile menu) */
+        /* ── Theme: toggle ────────────────────────────────────── */
         toggleTheme() {
             this.themeMode = this.themeMode === 'dark' ? 'light' : 'dark';
             this.persistDisplayModes();
@@ -588,6 +711,26 @@ function siteApp() {
                 else if (this.accessibilityMode === 'colorblind')      themeMeta.setAttribute('content', '#005f99');
                 else                                                   themeMeta.setAttribute('content', '#0f5f3a');
             }
+        },
+
+        /* ── Copy to clipboard ────────────────────────────────── */
+        copyToClipboard(text, label) {
+            navigator.clipboard.writeText(text).then(() => {
+                this.toastMessage = `${label} скопирован`;
+                this.toastVisible = true;
+                setTimeout(() => this.toastVisible = false, 2000);
+            }).catch(() => {
+                /* Fallback for older browsers */
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                this.toastMessage = `${label} скопирован`;
+                this.toastVisible = true;
+                setTimeout(() => this.toastVisible = false, 2000);
+            });
         }
     };
 }

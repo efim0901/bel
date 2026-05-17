@@ -12,6 +12,17 @@
     <meta name="author" content="ООО «БелВторПереработка»">
     <link rel="canonical" href="https://belvtorpererabotka.by/">
 
+    <!-- Performance: Preconnect & DNS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+
+    <!-- Preload Hero Image (LCP fix) -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1200&auto=format&fit=crop" fetchpriority="high" type="image/webp">
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://belvtorpererabotka.by/">
@@ -120,7 +131,7 @@
     <script defer src="assets/js/app.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.13.5/dist/cdn.min.js"></script>
 
-    <!-- Fonts -->
+    <!-- Fonts: display=swap for CLS fix -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
@@ -139,6 +150,15 @@
     x-init="init()"
     :class="{ 'theme-dark': themeMode === 'dark', 'mode-colorblind': accessibilityMode === 'colorblind' }"
 >
+    <!-- Performance: Scroll Progress -->
+    <div class="scroll-progress" aria-hidden="true" :style="`width: ${scrollProgress}%`"></div>
+
+    <!-- UI: Noise texture overlay -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <!-- UI: Cursor glow (desktop only) -->
+    <div class="cursor-glow" aria-hidden="true" x-ref="cursorGlow"></div>
+
     <!-- Ambient background decoration -->
     <div class="page-shell" aria-hidden="true">
         <div class="ambient ambient-one"></div>
@@ -168,7 +188,7 @@
                 <!-- Logo -->
                 <button class="brand-lockup group" type="button" @click="setTab('home')" aria-label="Перейти на главную страницу">
                     <span class="logo-mark header-logo" aria-hidden="true">
-                        <img src="assets/Лого.png" alt="Логотип БелВторПереработка" width="46" height="46">
+                        <img src="assets/Лого.png" alt="Логотип БелВторПереработка" width="46" height="46" fetchpriority="high">
                     </span>
                     <span class="text-left">
                         <span class="block font-display text-xl font-black leading-none tracking-normal text-graphite-900">БелВтор</span>
@@ -181,7 +201,7 @@
                     <template x-for="item in navItems" :key="item.id">
                         <button
                             type="button"
-                            class="nav-pill"
+                            class="nav-pill magnetic-button"
                             :class="currentTab === item.id ? 'nav-pill-active' : ''"
                             @click="setTab(item.id)"
                             :aria-current="currentTab === item.id ? 'page' : undefined"
@@ -197,7 +217,7 @@
                     <!-- Settings trigger -->
                     <button
                         type="button"
-                        class="settings-trigger"
+                        class="settings-trigger magnetic-button"
                         @click="settingsOpen = true"
                         :aria-expanded="settingsOpen.toString()"
                         aria-label="Открыть настройки отображения"
@@ -218,7 +238,7 @@
                         <span class="phone-orb" aria-hidden="true"><i class="fa-solid fa-phone"></i></span>
                     </a>
 
-                    <button class="primary-small" type="button" @click="setTab('contacts')">
+                    <button class="primary-small magnetic-button" type="button" @click="setTab('contacts')">
                         Контакты
                     </button>
                 </div>
@@ -226,7 +246,7 @@
                 <!-- Settings trigger (lg, before 2xl) -->
                 <button
                     type="button"
-                    class="hidden settings-trigger-sm lg:inline-flex 2xl:hidden"
+                    class="hidden settings-trigger-sm lg:inline-flex 2xl:hidden magnetic-button"
                     @click="settingsOpen = true"
                     aria-label="Настройки отображения"
                 >
@@ -252,7 +272,7 @@
             </div>
 
             <!-- Mobile dropdown -->
-                        <div id="mobile-menu" class="mobile-menu xl:hidden" 
+            <div id="mobile-menu" class="mobile-menu xl:hidden" 
                  x-show="mobileMenu" 
                  x-transition:enter="transition ease-out duration-200"
                  x-transition:enter-start="opacity-0 -translate-y-2"
@@ -315,7 +335,7 @@
     ></div>
 
     <!-- Drawer -->
-        <aside
+    <aside
         class="settings-panel"
         x-show="settingsOpen"
         x-transition:enter="transition ease-out duration-200"
@@ -482,18 +502,18 @@
                             <span class="pulse-dot" aria-hidden="true"></span>
                             Официальная работа с отходами и вторсырьём
                         </div>
-                        <h1 class="max-w-5xl font-display text-5xl font-black leading-[0.98] tracking-normal text-white md:text-7xl xl:text-[88px]">
+                        <h1 class="max-w-5xl font-display text-5xl font-black leading-[0.98] tracking-normal text-white md:text-7xl xl:text-[88px] text-reveal">
                             Переработка без&nbsp;хаоса. Гомель чище, бизнес спокойнее.
                         </h1>
                         <p class="mt-7 max-w-2xl text-lg leading-8 text-white/78 md:text-xl">
                             Сбор и вывоз вторичных ресурсов, утилизация техники, документы для организаций и понятный процесс для населения.
                         </p>
                         <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-                            <button class="hero-cta" type="button" @click="setTab('services')">
+                            <button class="hero-cta magnetic-button" type="button" @click="setTab('services')">
                                 <i class="fa-solid fa-recycle" aria-hidden="true"></i>
                                 Сдать вторсырьё
                             </button>
-                            <button class="hero-cta-secondary" type="button" @click="setTab('business')">
+                            <button class="hero-cta-secondary magnetic-button" type="button" @click="setTab('business')">
                                 Для юридических лиц
                             </button>
                         </div>
@@ -516,17 +536,17 @@
                 </div>
 
                 <div class="mt-10 grid gap-4 md:grid-cols-3">
-                    <article class="signal-card fade-up">
+                    <article class="signal-card fade-up spotlight-card gradient-border">
                         <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
                         <h2>Вывозим своим транспортом</h2>
                         <p>Согласуем объём, адрес, время и формат погрузки. Для предприятий возможен регулярный график.</p>
                     </article>
-                    <article class="signal-card fade-up" style="transition-delay:80ms">
+                    <article class="signal-card fade-up spotlight-card gradient-border" style="transition-delay:80ms">
                         <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
                         <h2>Работаем прозрачно</h2>
                         <p>Условия приёма зависят от типа сырья, качества и объёма. Актуальную цену подтверждаем перед вывозом.</p>
                     </article>
-                    <article class="signal-card fade-up" style="transition-delay:160ms">
+                    <article class="signal-card fade-up spotlight-card gradient-border" style="transition-delay:160ms">
                         <i class="fa-solid fa-file-invoice" aria-hidden="true"></i>
                         <h2>Документы для бизнеса</h2>
                         <p>Договоры, акты и реквизиты. Помогаем закрывать вопрос с отходами без лишней административной нагрузки.</p>
@@ -541,7 +561,7 @@
 
                 <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
                     <template x-for="step in processSteps" :key="step.title">
-                        <article class="process-card fade-up">
+                        <article class="process-card fade-up spotlight-card">
                             <div class="process-index" x-text="step.number" aria-hidden="true"></div>
                             <div class="process-icon" aria-hidden="true"><i :class="step.icon"></i></div>
                             <h3 x-text="step.title"></h3>
@@ -562,7 +582,7 @@
                     </div>
                     <div class="grid gap-3 sm:grid-cols-2">
                         <template x-for="direction in quickDirections" :key="direction.title">
-                            <button class="direction-tile fade-up" type="button" @click="setTab(direction.tab)">
+                            <button class="direction-tile fade-up magnetic-button" type="button" @click="setTab(direction.tab)">
                                 <i :class="direction.icon" aria-hidden="true"></i>
                                 <span x-text="direction.title"></span>
                                 <small x-text="direction.text"></small>
@@ -582,7 +602,7 @@
                             <div class="dark-mini"><strong>Вывоз</strong><span>по договорённости</span></div>
                         </div>
                     </article>
-                    <article class="contact-preview fade-up" style="transition-delay:120ms">
+                    <article class="contact-preview fade-up spotlight-card" style="transition-delay:120ms">
                         <span class="section-kicker">Быстрая связь</span>
                         <h2>Опишите сырьё и примерный объём.</h2>
                         <p>Менеджер подскажет, какие условия приёма подходят именно вашему случаю.</p>
@@ -591,7 +611,7 @@
                             <a href="tel:+375291775228" aria-label="Позвонить по дополнительному номеру"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i> +375 (29) 177-52-28</a>
                             <a href="mailto:belvtorpererabotka@rambler.ru" aria-label="Написать email"><i class="fa-solid fa-envelope" aria-hidden="true"></i> belvtorpererabotka@rambler.ru</a>
                         </div>
-                        <button class="mt-7 w-full rounded-2xl bg-brand-700 px-5 py-4 text-sm font-black uppercase text-white transition hover:bg-brand-800" style="letter-spacing:.16em" type="button" @click="setTab('contacts')">
+                        <button class="mt-7 w-full rounded-2xl bg-brand-700 px-5 py-4 text-sm font-black uppercase text-white transition hover:bg-brand-800 magnetic-button" style="letter-spacing:.16em" type="button" @click="setTab('contacts')">
                             Все контакты
                         </button>
                     </article>
@@ -610,7 +630,7 @@
 
                 <div class="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
                     <template x-for="service in services" :key="service.title">
-                        <article class="service-card fade-up">
+                        <article class="service-card fade-up spotlight-card gradient-border">
                             <div class="service-topline">
                                 <div class="service-icon" :class="service.tone" aria-hidden="true"><i :class="service.icon"></i></div>
                                 <span class="service-price" x-text="service.price"></span>
@@ -622,7 +642,7 @@
                                     <li><i class="fa-solid fa-check" aria-hidden="true"></i><span x-text="item"></span></li>
                                 </template>
                             </ul>
-                                                        <div class="service-infographic">
+                            <div class="service-infographic">
                                 <template x-for="(step, idx) in service.steps" :key="idx">
                                     <div class="info-step" :class="idx < service.steps.length - 1 ? 'has-connector' : ''">
                                         <div class="info-icon-wrap" aria-hidden="true">
@@ -638,7 +658,7 @@
                 </div>
 
                 <div class="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-                    <article class="rules-panel fade-up">
+                    <article class="rules-panel fade-up spotlight-card">
                         <span class="section-kicker">Подготовка сырья</span>
                         <h2>Чем аккуратнее подготовка, тем быстрее приём.</h2>
                         <p>Мы не требуем идеальной чистоты, но базовая сортировка помогает сохранить стоимость сырья и ускорить погрузку.</p>
@@ -652,7 +672,7 @@
                         </div>
                     </article>
 
-                    <article class="price-panel fade-up" style="transition-delay:120ms">
+                    <article class="price-panel fade-up spotlight-card" style="transition-delay:120ms">
                         <span class="section-kicker">Как узнать цену</span>
                         <h2>Назовите материал, объём и адрес.</h2>
                         <p>После этого можно быстро понять: выгоднее привезти сырьё самостоятельно, заказать вывоз или оформить регулярный график.</p>
@@ -662,8 +682,8 @@
                             <div class="price-step"><span>03</span><strong>Расчёт</strong><p>Стоимость, график, документы.</p></div>
                         </div>
                         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                            <a class="button-solid" href="tel:+375296989237" aria-label="Позвонить для расчёта цены">Позвонить</a>
-                            <button class="button-ghost" type="button" @click="setTab('contacts')">Реквизиты и карта</button>
+                            <a class="button-solid magnetic-button" href="tel:+375296989237" aria-label="Позвонить для расчёта цены">Позвонить</a>
+                            <button class="button-ghost magnetic-button" type="button" @click="setTab('contacts')">Реквизиты и карта</button>
                         </div>
                     </article>
                 </div>
@@ -676,7 +696,7 @@
 
                 <div class="mt-10 grid gap-5 md:grid-cols-3">
                     <template x-for="condition in serviceConditions" :key="condition.title">
-                        <article class="condition-card fade-up">
+                        <article class="condition-card fade-up spotlight-card gradient-border">
                             <i :class="condition.icon" aria-hidden="true"></i>
                             <h3 x-text="condition.title"></h3>
                             <p x-text="condition.text"></p>
@@ -697,7 +717,7 @@
 
                 <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
                     <template x-for="item in equipmentItems" :key="item.title">
-                        <article class="equipment-card fade-up">
+                        <article class="equipment-card fade-up spotlight-card gradient-border">
                             <div class="equipment-icon" aria-hidden="true"><i :class="item.icon"></i></div>
                             <h2 x-text="item.title"></h2>
                             <p x-text="item.text"></p>
@@ -707,7 +727,7 @@
                 </div>
 
                 <div class="mt-14 grid gap-6 lg:grid-cols-[1fr_1fr]">
-                    <article class="timeline-panel fade-up">
+                    <article class="timeline-panel fade-up spotlight-card">
                         <span class="section-kicker">Как согласовать утилизацию</span>
                         <h2>Для техники важны состав, количество и состояние.</h2>
                         <div class="mt-8 space-y-5">
@@ -720,7 +740,7 @@
                         </div>
                     </article>
 
-                    <article class="document-panel fade-up" style="transition-delay:120ms">
+                    <article class="document-panel fade-up spotlight-card" style="transition-delay:120ms">
                         <span class="section-kicker">Важно</span>
                         <h2>Не все отходы принимаются одинаково.</h2>
                         <p>Перед доставкой или вывозом нужно согласовать категорию отхода. Для ламп, техники и производственных остатков условия могут отличаться от обычного вторсырья.</p>
@@ -730,7 +750,7 @@
                             <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Для юрлиц заранее уточняйте пакет документов и график вывоза.</li>
                             <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Точную стоимость и возможность приёма подтверждает менеджер.</li>
                         </ul>
-                        <button class="button-solid mt-8" type="button" @click="setTab('contacts')">Согласовать приём</button>
+                        <button class="button-solid mt-8 magnetic-button" type="button" @click="setTab('contacts')">Согласовать приём</button>
                     </article>
                 </div>
 
@@ -742,7 +762,7 @@
 
                 <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                     <template x-for="category in equipmentCategories" :key="category.title">
-                        <article class="category-card fade-up">
+                        <article class="category-card fade-up spotlight-card">
                             <i :class="category.icon" aria-hidden="true"></i>
                             <div><h3 x-text="category.title"></h3><p x-text="category.text"></p></div>
                         </article>
@@ -762,7 +782,7 @@
 
                 <div class="mt-12 grid gap-6 lg:grid-cols-3">
                     <template x-for="business in businessFeatures" :key="business.title">
-                        <article class="business-feature fade-up">
+                        <article class="business-feature fade-up spotlight-card gradient-border">
                             <i :class="business.icon" aria-hidden="true"></i>
                             <h2 x-text="business.title"></h2>
                             <p x-text="business.text"></p>
@@ -789,7 +809,7 @@
                 </div>
 
                 <div class="mt-14 grid gap-6 lg:grid-cols-[1fr_1fr]">
-                    <article class="docs-panel fade-up">
+                    <article class="docs-panel fade-up spotlight-card">
                         <span class="section-kicker">Документы</span>
                         <h2>Реквизиты и оформление собраны в одном месте.</h2>
                         <div class="mt-7 grid gap-4">
@@ -802,7 +822,7 @@
                         </div>
                     </article>
 
-                    <article class="schedule-panel fade-up" style="transition-delay:120ms">
+                    <article class="schedule-panel fade-up spotlight-card" style="transition-delay:120ms">
                         <span class="section-kicker">Регулярный вывоз</span>
                         <h2>Подходит, если отходы появляются постоянно.</h2>
                         <p>Можно согласовать периодичность: по звонку, еженедельно, несколько раз в месяц или по накоплению объёма.</p>
@@ -811,7 +831,7 @@
                                 <div class="schedule-row"><strong x-text="mode.title"></strong><span x-text="mode.text"></span></div>
                             </template>
                         </div>
-                        <button class="button-solid mt-8" type="button" @click="setTab('contacts')">Обсудить договор</button>
+                        <button class="button-solid mt-8 magnetic-button" type="button" @click="setTab('contacts')">Обсудить договор</button>
                     </article>
                 </div>
             </div>
@@ -828,12 +848,12 @@
 
                 <div class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
                     <template x-for="partner in partners" :key="partner">
-                        <article class="partner-card fade-up"><span x-text="partner"></span></article>
+                        <article class="partner-card fade-up spotlight-card"><span x-text="partner"></span></article>
                     </template>
                 </div>
 
                 <div class="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-                    <article class="trust-panel fade-up">
+                    <article class="trust-panel fade-up spotlight-card">
                         <span class="section-kicker">Форматы сотрудничества</span>
                         <h2>От разового вывоза до постоянного графика.</h2>
                         <p>Компания может быть полезна торговым сетям, производствам, офисам, складам, учебным и государственным учреждениям.</p>
@@ -847,7 +867,7 @@
                         </div>
                     </article>
 
-                    <article class="stats-board fade-up" style="transition-delay:120ms">
+                    <article class="stats-board fade-up spotlight-card" style="transition-delay:120ms">
                         <div class="stat-line"><span>2010</span><p>год начала работы</p></div>
                         <div class="stat-line"><span>491 333 347</span><p>УНП компании для проверки реквизитов</p></div>
                         <div class="stat-line"><span>Гомель</span><p>основная зона работы: город и область</p></div>
@@ -861,17 +881,17 @@
                 </div>
 
                 <div class="mt-10 grid gap-5 md:grid-cols-3">
-                    <article class="condition-card fade-up">
+                    <article class="condition-card fade-up spotlight-card gradient-border">
                         <i class="fa-solid fa-list-check" aria-hidden="true"></i>
                         <h3>Условия до выезда</h3>
                         <p>Согласование снижает риск отказа, простоя и непонятной цены на месте.</p>
                     </article>
-                    <article class="condition-card fade-up">
+                    <article class="condition-card fade-up spotlight-card gradient-border">
                         <i class="fa-solid fa-file-circle-check" aria-hidden="true"></i>
                         <h3>Документы и реквизиты</h3>
                         <p>Контактная информация и банковские данные доступны без поиска по сайту.</p>
                     </article>
-                    <article class="condition-card fade-up">
+                    <article class="condition-card fade-up spotlight-card gradient-border">
                         <i class="fa-solid fa-route" aria-hidden="true"></i>
                         <h3>Логистика</h3>
                         <p>Вывоз, самовывоз и регулярный график вынесены в понятные сценарии.</p>
@@ -917,7 +937,7 @@
 
                 <div class="mt-12 space-y-4" role="list">
                     <template x-for="(item, index) in filteredFaqs" :key="item.question">
-                        <article class="faq-item fade-up" :class="activeFaq === index ? 'faq-item-open' : ''" role="listitem">
+                        <article class="faq-item fade-up spotlight-card" :class="activeFaq === index ? 'faq-item-open' : ''" role="listitem">
                             <button
                                 type="button"
                                 @click="activeFaq = activeFaq === index ? null : index"
@@ -948,7 +968,7 @@
                         <h2>Лучше уточнить по телефону до погрузки.</h2>
                         <p>Особенно если сырьё влажное, смешанное, находится за городом или относится к специальным отходам.</p>
                     </div>
-                    <a class="button-solid" href="tel:+375296989237" aria-label="Позвонить менеджеру">Позвонить менеджеру</a>
+                    <a class="button-solid magnetic-button" href="tel:+375296989237" aria-label="Позвонить менеджеру">Позвонить менеджеру</a>
                 </div>
             </div>
         </section>
@@ -964,7 +984,7 @@
 
                 <div class="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
                     <div class="space-y-6">
-                        <article class="contact-card fade-up">
+                        <article class="contact-card fade-up spotlight-card">
                             <h2><i class="fa-solid fa-address-card" aria-hidden="true"></i> Контактная информация</h2>
                             <div class="mt-7 space-y-5">
                                 <template x-for="contact in contacts" :key="contact.title">
@@ -998,7 +1018,7 @@
                             </div>
                         </article>
 
-                        <article class="requisites-card fade-up" style="transition-delay:120ms">
+                        <article class="requisites-card fade-up spotlight-card" style="transition-delay:120ms">
                             <h2>Реквизиты</h2>
                             <div class="mt-6 grid gap-4">
                                 <template x-for="req in requisites" :key="req.label">
@@ -1028,7 +1048,9 @@
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2432.222765873495!2d30.9844!3d52.441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d469a5310344b1%3A0x6a05973809054790!2z0YPQuy4gMTAg0LvQtdGCINCe0LrRgtGP0LHRgNGPLCAxLCDQk9C-0LzQtdC70Yw!5e0!3m2!1sru!2sby!4v1700000000000!5m2!1sru!2sby"
                                 loading="lazy"
                                 allowfullscreen
-                                referrerpolicy="no-referrer-when-downgrade">
+                                referrerpolicy="no-referrer-when-downgrade"
+                                width="100%"
+                                height="510">
                             </iframe>
                             <div class="map-badge">
                                 <span>Офис и склад</span>
@@ -1036,13 +1058,13 @@
                             </div>
                         </article>
 
-                        <article class="request-card fade-up" style="transition-delay:120ms">
+                        <article class="request-card fade-up spotlight-card" style="transition-delay:120ms">
                             <span class="section-kicker">Как оставить заявку</span>
                             <h2>Без формы, которая ничего не отправляет.</h2>
                             <p>Основной сценарий — звонок или письмо. В сообщении укажите тип сырья, примерный объём, адрес и желаемую дату.</p>
                             <div class="mt-6 grid gap-3 sm:grid-cols-2">
-                                <a class="button-solid" href="tel:+375296989237" aria-label="Позвонить">Позвонить</a>
-                                <a class="button-ghost" href="mailto:belvtorpererabotka@rambler.ru" aria-label="Написать email">Написать email</a>
+                                <a class="button-solid magnetic-button" href="tel:+375296989237" aria-label="Позвонить">Позвонить</a>
+                                <a class="button-ghost magnetic-button" href="mailto:belvtorpererabotka@rambler.ru" aria-label="Написать email">Написать email</a>
                             </div>
                         </article>
                     </div>
@@ -1058,7 +1080,7 @@
             <div class="grid gap-10 lg:grid-cols-[1.1fr_0.8fr_0.8fr_1fr]">
                 <div>
                     <div class="flex items-center gap-3">
-                        <span class="logo-mark footer-logo" aria-hidden="true"><img src="assets/Лого.png" alt="Логотип" width="44" height="44"></span>
+                        <span class="logo-mark footer-logo" aria-hidden="true"><img src="assets/Лого.png" alt="Логотип" width="44" height="44" loading="lazy"></span>
                         <div>
                             <strong class="font-display text-xl tracking-normal">БелВторПереработка</strong>
                             <p class="text-xs font-bold uppercase text-brand-300" style="letter-spacing:.18em">Гомель</p>
