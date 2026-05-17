@@ -147,157 +147,89 @@ iframe {
     min-height: 34px;
 }
 
-/* ===== Top line: mobile-first responsive ===== */
-.top-line > div {
-    min-height: 34px;
+/* ===== Top line: clean mobile-first ===== */
+.top-line {
+    position: relative;
+    z-index: 60;
+    background:
+        linear-gradient(90deg, rgba(6, 50, 34, 0.98), rgba(12, 82, 52, 0.96)),
+        var(--brand-900);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .top-line-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+    justify-content: center;
+    gap: 16px;
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 16px;
-    min-height: 34px;
+    min-height: 36px;
 }
 
-.top-line-left,
-.top-line-right {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    min-width: 0;
-}
-
-.top-line-left {
-    flex: 1 1 auto;
-    overflow: hidden;
-}
-
-.top-line-right {
-    flex: 0 0 auto;
-    flex-shrink: 0;
-}
-
-/* Info chips */
-.top-line .info-chip {
-    position: relative;
+.top-line-phone {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding-right: 12px;
-    margin-right: 12px;
-    font-size: 11px;
-    font-weight: 800;
-    color: rgba(255, 255, 255, 0.82);
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.top-line .info-chip::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.14);
-}
-
-.top-line .info-chip:last-of-type::after {
-    display: none;
-}
-
-.top-line .info-chip i {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.10);
-    font-size: 9px;
-    color: #bff1d4;
-    flex-shrink: 0;
-}
-
-/* Secondary chip hidden on very small screens */
-.info-chip-secondary {
-    display: none;
-}
-
-/* Top links */
-.top-line .top-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
+    gap: 8px;
+    padding: 5px 12px;
     border-radius: 6px;
-    font-size: 11px;
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.88);
+    font-size: 12px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.92);
     letter-spacing: 0.02em;
-    transition: background 180ms ease, color 180ms ease;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     white-space: nowrap;
+    transition: background 180ms ease, color 180ms ease;
     flex-shrink: 0;
 }
 
-.top-line .top-link:hover {
-    background: rgba(255, 255, 255, 0.10);
+.top-line-phone:hover {
+    background: rgba(255, 255, 255, 0.14);
     color: #ffffff;
 }
 
-.top-line .top-link i {
+.top-line-phone i {
     font-size: 10px;
     color: #bff1d4;
-    flex-shrink: 0;
 }
 
-/* Phone link compact mode */
-.top-link-short {
-    display: inline;
-}
-
-.top-link-full {
+.top-line-meta {
     display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.65);
+    white-space: nowrap;
 }
 
-/* Tablet: show schedule chip */
+.top-line-meta i {
+    font-size: 9px;
+    color: #bff1d4;
+}
+
+/* Tablet+: show schedule */
 @media (min-width: 480px) {
-    .info-chip-secondary {
+    .top-line-meta {
         display: inline-flex;
     }
 }
 
-/* Desktop: full layout */
+/* Desktop: more padding */
 @media (min-width: 640px) {
     .top-line-inner {
         padding: 0 24px;
+        gap: 20px;
     }
-    .top-line .info-chip {
-        padding-right: 16px;
-        margin-right: 16px;
-        gap: 7px;
-    }
-    .top-link-full {
-        display: inline;
-    }
-    .top-link-short {
-        display: none;
+    .top-line-phone {
+        font-size: 13px;
+        padding: 6px 14px;
     }
 }
 
-@media (min-width: 768px) {
-    .top-line-left {
-        gap: 0;
-    }
-}
-
-/* ===== Header: floating nav track ===== */
+/* ===== Header: floating nav track ===== *//* ===== Header: floating nav track ===== */
 header {
     border-bottom: 1px solid rgba(23, 33, 30, 0.06);
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.60) inset,

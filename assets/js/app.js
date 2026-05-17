@@ -12,10 +12,6 @@ function siteApp() {
         activeFaq:        0,
         themeMode:        'light',
         accessibilityMode:'normal',
-        toastMessage:      '',
-        toastVisible:      false,
-        toastTimeout:      null,
-        faqSearch:         '',
 
         /* ── Navigation ───────────────────────────────────────── */
         navItems: [
@@ -66,115 +62,115 @@ function siteApp() {
 
         /* ── Services ─────────────────────────────────────────── */
                 services: [
-            {
-                title:       'Макулатура',
-                description: 'Приём картонной упаковки, офисной бумаги, архивов, газет, журналов и книжной продукции.',
-                icon:        'fa-solid fa-scroll',
-                tone:        'tone-green',
-                price:       'от 0.15 BYN/кг',
-                items: [
-                    'картон и гофрокартон',
-                    'офисная бумага и архивы',
-                    'газеты, журналы, книги',
-                    'производственная бумажная упаковка'
-                ],
-                steps: [
-                    { icon: 'fa-solid fa-layer-group', text: 'Спрессовать' },
-                    { icon: 'fa-solid fa-droplet-slash', text: 'Сухая' },
-                    { icon: 'fa-solid fa-magnet', text: 'Убрать металл' }
-                ]
-            },
-            {
-                title:       'Стеклобой',
-                description: 'Сбор стеклянных бутылок, банок, чистого листового стекла и стеклянной тары по согласованию.',
-                icon:        'fa-solid fa-wine-bottle',
-                tone:        'tone-blue',
-                price:       'договорная',
-                items: [
-                    'бутылки и банки',
-                    'тарное стекло',
-                    'чистое оконное стекло',
-                    'крупные партии для вывоза'
-                ],
-                steps: [
-                    { icon: 'fa-solid fa-bottle-water', text: 'Убрать крышки' },
-                    { icon: 'fa-solid fa-shapes', text: 'Без керамики' },
-                    { icon: 'fa-solid fa-broom', text: 'Чистое' }
-                ]
-            },
-            {
-                title:       'Полимеры',
-                description: 'Приём отдельных видов пластикового сырья: ПЭТ, ПВД, стрейч, канистры, ящики и тара.',
-                icon:        'fa-solid fa-cubes',
-                tone:        'tone-amber',
-                price:       'по объёму',
-                items: [
-                    'ПЭТ-бутылка прозрачная и цветная',
-                    'плёнка ПВД и стрейч',
-                    'канистры ПНД',
-                    'пластиковые ящики и тара'
-                ],
-                steps: [
-                    { icon: 'fa-solid fa-compress', text: 'Сплющить' },
-                    { icon: 'fa-solid fa-droplet-slash', text: 'Без жидкостей' },
-                    { icon: 'fa-solid fa-tag', text: 'Снять этикетки' }
-                ]
-            },
-            {
-                title:       'Металл и лом',
-                description: 'Отдельные категории металлического лома принимаются по предварительному согласованию.',
-                icon:        'fa-solid fa-industry',
-                tone:        'tone-metal',
-                price:       'по заявке',
-                items: [
-                    'медный лом',
-                    'производственные остатки',
-                    'металлические элементы техники',
-                    'партии от организаций'
-                ],
-                steps: [
-                    { icon: 'fa-solid fa-magnet', text: 'Отделить' },
-                    { icon: 'fa-solid fa-oil-can', text: 'Без масла' },
-                    { icon: 'fa-solid fa-weight-hanging', text: 'Уточнить вес' }
-                ]
-            },
-            {
-                title:       'Вывоз вторсырья',
-                description: 'Организуем вывоз с территории предприятия, склада, магазина, офиса или частного адреса.',
-                icon:        'fa-solid fa-truck-fast',
-                tone:        'tone-green',
-                price:       'от объёма',
-                items: [
-                    'вывоз в черте города',
-                    'работа по области по договорённости',
-                    'согласование времени',
-                    'регулярный график для бизнеса'
-                ],
-                steps: [
-                    { icon: 'fa-solid fa-camera', text: 'Сфотографировать' },
-                    { icon: 'fa-solid fa-scale-balanced', text: 'Оценить объём' },
-                    { icon: 'fa-solid fa-clock', text: 'Согласовать время' }
-                ]
-            },
-            {
-                title:       'Самовывоз на склад',
-                description: 'Если объём небольшой или вам удобнее привезти сырьё самостоятельно, заранее согласуйте приём.',
-                icon:        'fa-solid fa-warehouse',
-                tone:        'tone-blue',
-                price:       'по факту',
-                items: [
-                    'адрес: ул. 10 лет Октября, 1-2',
-                    'приём по рабочему графику',
-                    'предварительный звонок желателен',
-                    'оценка качества на месте'
-                ],
-                steps: [
-                    { icon: 'fa-solid fa-phone', text: 'Позвонить' },
-                    { icon: 'fa-solid fa-id-card', text: 'Паспорт' },
-                    { icon: 'fa-solid fa-boxes-packing', text: 'Упаковать' }
-                ]
-            }
+    {
+        title:       'Макулатура',
+        description: 'Приём картонной упаковки, офисной бумаги, архивов, газет, журналов и книжной продукции.',
+        icon:        'fa-solid fa-scroll',
+        tone:        'tone-green',
+        price:       'от 0.15 BYN/кг',
+        items: [
+            'картон и гофрокартон',
+            'офисная бумага и архивы',
+            'газеты, журналы, книги',
+            'производственная бумажная упаковка'
         ],
+        steps: [
+            { icon: 'fa-solid fa-layer-group', text: 'Спрессовать' },
+            { icon: 'fa-solid fa-droplet-slash', text: 'Сухая' },
+            { icon: 'fa-solid fa-magnet', text: 'Убрать металл' }
+        ]
+    },
+    {
+        title:       'Стеклобой',
+        description: 'Сбор стеклянных бутылок, банок, чистого листового стекла и стеклянной тары по согласованию.',
+        icon:        'fa-solid fa-wine-bottle',
+        tone:        'tone-blue',
+        price:       'договорная',
+        items: [
+            'бутылки и банки',
+            'тарное стекло',
+            'чистое оконное стекло',
+            'крупные партии для вывоза'
+        ],
+        steps: [
+            { icon: 'fa-solid fa-bottle-water', text: 'Убрать крышки' },
+            { icon: 'fa-solid fa-shapes', text: 'Без керамики' },
+            { icon: 'fa-solid fa-broom', text: 'Чистое' }
+        ]
+    },
+    {
+        title:       'Полимеры',
+        description: 'Приём отдельных видов пластикового сырья: ПЭТ, ПВД, стрейч, канистры, ящики и тара.',
+        icon:        'fa-solid fa-cubes',
+        tone:        'tone-amber',
+        price:       'по объёму',
+        items: [
+            'ПЭТ-бутылка прозрачная и цветная',
+            'плёнка ПВД и стрейч',
+            'канистры ПНД',
+            'пластиковые ящики и тара'
+        ],
+        steps: [
+            { icon: 'fa-solid fa-compress', text: 'Сплющить' },
+            { icon: 'fa-solid fa-droplet-slash', text: 'Без жидкостей' },
+            { icon: 'fa-solid fa-tag', text: 'Снять этикетки' }
+        ]
+    },
+    {
+        title:       'Металл и лом',
+        description: 'Отдельные категории металлического лома принимаются по предварительному согласованию.',
+        icon:        'fa-solid fa-industry',
+        tone:        'tone-metal',
+        price:       'по заявке',
+        items: [
+            'медный лом',
+            'производственные остатки',
+            'металлические элементы техники',
+            'партии от организаций'
+        ],
+        steps: [
+            { icon: 'fa-solid fa-magnet', text: 'Отделить' },
+            { icon: 'fa-solid fa-oil-can', text: 'Без масла' },
+            { icon: 'fa-solid fa-weight-hanging', text: 'Уточнить вес' }
+        ]
+    },
+    {
+        title:       'Вывоз вторсырья',
+        description: 'Организуем вывоз с территории предприятия, склада, магазина, офиса или частного адреса.',
+        icon:        'fa-solid fa-truck-fast',
+        tone:        'tone-green',
+        price:       'от объёма',
+        items: [
+            'вывоз в черте города',
+            'работа по области по договорённости',
+            'согласование времени',
+            'регулярный график для бизнеса'
+        ],
+        steps: [
+            { icon: 'fa-solid fa-camera', text: 'Сфотографировать' },
+            { icon: 'fa-solid fa-scale-balanced', text: 'Оценить объём' },
+            { icon: 'fa-solid fa-clock', text: 'Согласовать время' }
+        ]
+    },
+    {
+        title:       'Самовывоз на склад',
+        description: 'Если объём небольшой или вам удобнее привезти сырьё самостоятельно, заранее согласуйте приём.',
+        icon:        'fa-solid fa-warehouse',
+        tone:        'tone-blue',
+        price:       'по факту',
+        items: [
+            'адрес: ул. 10 лет Октября, 1-2',
+            'приём по рабочему графику',
+            'предварительный звонок желателен',
+            'оценка качества на месте'
+        ],
+        steps: [
+            { icon: 'fa-solid fa-phone', text: 'Позвонить' },
+            { icon: 'fa-solid fa-id-card', text: 'Паспорт' },
+            { icon: 'fa-solid fa-boxes-packing', text: 'Упаковать' }
+        ]
+    }
+],
 
 
         /* ── Service rules ────────────────────────────────────── */
@@ -528,11 +524,6 @@ function siteApp() {
                     this.mobileMenu = false;
                 }
             });
-
-            /* Scroll-triggered fade-up animations — run after next tick so DOM is settled */
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => this.initFadeUp());
-            });
         },
 
 
@@ -597,67 +588,6 @@ function siteApp() {
                 else if (this.accessibilityMode === 'colorblind')      themeMeta.setAttribute('content', '#005f99');
                 else                                                   themeMeta.setAttribute('content', '#0f5f3a');
             }
-        },
-
-        /* ── Toast notification ─────────────────────────────── */
-        showToast(msg) {
-            this.toastMessage = msg;
-            this.toastVisible = true;
-            if (this.toastTimeout) clearTimeout(this.toastTimeout);
-            this.toastTimeout = setTimeout(() => {
-                this.toastVisible = false;
-            }, 2500);
-        },
-
-        /* ── Clipboard copy ─────────────────────────────────── */
-        async copyToClipboard(text, label) {
-            try {
-                await navigator.clipboard.writeText(text);
-                this.showToast(label ? `Скопировано: ${label}` : 'Скопировано в буфер');
-            } catch (_) {
-                this.showToast('Не удалось скопировать');
-            }
-        },
-
-        /* ── FAQ filter ─────────────────────────────────────── */
-        get filteredFaqs() {
-            if (!this.faqSearch.trim()) return this.faqs;
-            const q = this.faqSearch.toLowerCase();
-            return this.faqs.filter(f =>
-                f.question.toLowerCase().includes(q) ||
-                f.answer.toLowerCase().includes(q)
-            );
-        },
-
-        /* ── Scroll animations (IntersectionObserver) ───────── */
-        initFadeUp() {
-            // Mark body as JS-ready so CSS knows animations are active
-            document.body.classList.add('js-ready');
-
-            if (!window.IntersectionObserver) {
-                // Fallback: show everything if IO not supported
-                document.querySelectorAll('.fade-up').forEach(el => el.classList.add('is-visible'));
-                return;
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-
-            document.querySelectorAll('.fade-up').forEach(el => {
-                // If element is already in viewport on load, show immediately
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    el.classList.add('is-visible');
-                } else {
-                    observer.observe(el);
-                }
-            });
-        },
+        }
     };
 }
